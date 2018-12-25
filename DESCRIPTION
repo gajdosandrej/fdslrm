@@ -1,11 +1,15 @@
 Package: fdslrm
 Type: Package
-Title: What the Package Does (Title Case)
+Title: R package for modeling and prediction of time series using linear mixed models
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Andrej Gajdos, Jozef Hanc, Martina Hancova 
+Maintainer: Andrej Gajdos <andrejg44@gmail.com>
+Description: R package for modeling and prediction of time series using linear mixed models. 
+Depends: R (>= 2.10)
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.0.1
+Imports: 
+Suggests: knitr, rmarkdown
+VignetteBuilder: knitr
