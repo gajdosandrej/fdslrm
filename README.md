@@ -39,6 +39,11 @@ Just run the following command in your RStudio console:
 devtools::install_github("gajdosandrej/fdslrm")
 ```
 
+Acknowledgements
+=======
+
+This research is partially supported by the projects APVV-17-0568, VEGA 1/0311/18 and VVGS-PF-2018-792.
+
 License
 =======
 
