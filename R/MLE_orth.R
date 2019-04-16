@@ -11,7 +11,7 @@
 #'
 #' @note Ver.: 06-Feb-2019 09:31:12.
 #'
-#' @import CVXR
+#' @importFrom CVXR Variable Maximize Problem solve
 #'
 #' @example R/Examples/example_MLE_orth.R
 #'
@@ -38,19 +38,19 @@ MLE_orth <- function(X, F, V){
         eV <- t(e) %*% V
         Ve <- t(V) %*% e
         d <- Variable(l+1)
-        logdetS <- p * log(d[l+1]) + sum(log(d[l+1] - GV %*% d[1:l]))
-        obj <- Maximize(logdetS - ((d[l+1] * ee) - (eV %*% diag(d[1:l]) %*% Ve)))
-        constr <- list(d[1:l] >= 0, d[l+1] >= max_entries(GV %*% d[1:l]))
+        logdetS <- p * log(d[1]) + sum(log(d[1] - GV %*% d[2:(l+1)]))
+        obj <- Maximize(logdetS - ((d[1] * ee) - (eV %*% diag(d[2:(l+1)]) %*% Ve)))
+        constr <- list(d[2:(l+1)] >= 0, d[1] >= max_entries(GV %*% d[2:(l+1)]))
         p_MLE <- Problem(obj, constr)
 
         sol <- solve(p_MLE)
 
-        s <- 1 / sol$getValue(d)[l+1]
+        s <- 1 / sol$getValue(d)[1]
         sj <- vector()
-        for(j in 1:l) {
-                sj <- c(sj, sol$getValue(d)[j]/(sol$getValue(d)[l+1] * (sol$getValue(d)[l+1] - sol$getValue(d)[j] * GV[j,j])))
+        for(j in 2:(l+1)) {
+                sj <- c(sj, sol$getValue(d)[j]/(sol$getValue(d)[1] * (sol$getValue(d)[1] - sol$getValue(d)[j] * GV[j-1,j-1])))
         }
-        result <- c(sj, s)
+        result <- c(s, sj)
 
         return(result)
 

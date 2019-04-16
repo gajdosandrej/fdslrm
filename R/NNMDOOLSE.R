@@ -1,23 +1,23 @@
-#' @title Non-negative double ordinary least squares estimates
+#' @title Non-negative modified double ordinary least squares estimates
 #'
 #' @description
-#' \code{NNDOOLSE_orth(X, F, V)} calculates non-negative double ordinary least squares estimates (NNDOOLSE) of variance parameters in orthogonal FDSLRM.
+#' \code{NNMDOOLSE(X, F, V)} calculates non-negative modified double ordinary least squares estimates (NNMDOOLSE) of variance parameters in FDSLRM.
 #'
 #' @param X time series realization.
 #' @param F design matrix for fixed effects.
 #' @param V design matrix for random effects.
 #'
-#' @return NNDOOLSE of variance parameters \eqn{\sigma_1^2, ..., \sigma_l^2, \sigma^2}.
+#' @return NNMDOOLSE of variance parameters \eqn{\sigma_1^2, ..., \sigma_l^2, \sigma^2}.
 #'
-#' @note Ver.: 06-Feb-2019 08:51:47.
+#' @note Ver.: 06-Feb-2019 09:21:03.
 #'
-#' @import CVXR
+#' @importFrom CVXR Variable Maximize Problem solve
 #'
-#' @example R/Examples/example_NNDOOLSE_orth.R
+#' @example R/Examples/example_NNMDOOLSE.R
 #'
 #' @export
 #'
-NNDOOLSE_orth <- function(X, F, V){
+NNMDOOLSE <- function(X, F, V){
 
         n <- length(X)
         k <- ncol(F)
@@ -33,7 +33,7 @@ NNDOOLSE_orth <- function(X, F, V){
 
         SX <- MF %*% X %*% t(X) %*% MF
         s <- Variable(l+1)
-        p_obj <- Minimize(sum_squares(SX - (s[l+1] %*% I) - (V %*% diag(s[1:l]) %*% t(V))))
+        p_obj <- Minimize(sum_squares(SX - (s[1] %*% MF) - (MFV %*% diag(s[2:(l+1)]) %*% t(MFV))))
         constr <- list(s >= 0)
         prob <- Problem(p_obj, constr)
 

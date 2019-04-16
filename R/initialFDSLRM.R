@@ -65,6 +65,9 @@ initialFDSLRM <- function(supress_messages = TRUE) {
                 if("pracma" %in% rownames(installed.packages()) == FALSE) {
                         suppressWarnings(suppressMessages(install.packages("pracma")))
                 }
+                if("CVXR" %in% rownames(installed.packages()) == FALSE) {
+                        suppressWarnings(suppressMessages(install.packages("CVXR")))
+                }
 
                 suppressWarnings(suppressMessages(library(kableExtra)))
                 suppressWarnings(suppressMessages(library(IRdisplay)))
@@ -79,6 +82,7 @@ initialFDSLRM <- function(supress_messages = TRUE) {
                 suppressWarnings(suppressMessages(library(sommer)))
                 suppressWarnings(suppressMessages(library(gnm)))
                 suppressWarnings(suppressMessages(library(pracma)))
+                suppressWarnings(suppressMessages(library(CVXR)))
 
 
         } else {
@@ -123,6 +127,9 @@ initialFDSLRM <- function(supress_messages = TRUE) {
                 if("pracma" %in% rownames(installed.packages()) == FALSE) {
                         install.packages("pracma")
                 }
+                if("CVXR" %in% rownames(installed.packages()) == FALSE) {
+                        install.packages("CVXR")
+                }
 
                 library(kableExtra)
                 library(IRdisplay)
@@ -137,6 +144,7 @@ initialFDSLRM <- function(supress_messages = TRUE) {
                 library(sommer)
                 library(gnm)
                 library(pracma)
+                library(CVXR)
 
         }
 
