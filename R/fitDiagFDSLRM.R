@@ -50,7 +50,7 @@
 #'
 #' Singer, J. M., Rocha, F. M. M., and Nobre, J. S. (2017): Graphical Tools for Detecting Departures
 #' from Linear Mixed Model Assumptions and Some Remedial Measures.
-#' \emph{International Statistical Review}, 85: 290–324. doi: 10.1111/insr.12178.
+#' \emph{International Statistical Review}, 85: 290-324.
 #'
 #' WITKOVSKY, V. (2002): MATLAB algorithm mixed.m for solving Henderson's mixed model equations. Elsevier 2002.
 #'

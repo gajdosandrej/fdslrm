@@ -11,7 +11,7 @@
 #'
 #' @note Ver.: 06-Feb-2019 09:31:12.
 #'
-#' @importFrom CVXR Variable Maximize Problem solve
+#' @import CVXR
 #'
 #' @example R/Examples/example_MLE_orth.R
 #'

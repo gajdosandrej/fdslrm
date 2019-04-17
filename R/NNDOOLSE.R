@@ -11,7 +11,7 @@
 #'
 #' @note Ver.: 06-Feb-2019 08:51:47.
 #'
-#' @importFrom CVXR Variable Maximize Problem solve
+#' @import CVXR
 #'
 #' @example R/Examples/example_NNDOOLSE.R
 #'
@@ -39,6 +39,6 @@ NNDOOLSE <- function(X, F, V){
 
         sol <- solve(prob)
 
-        return(sol$getValue(s))
+        return(c(sol$getValue(s)))
 
 }
