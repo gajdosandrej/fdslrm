@@ -27,7 +27,7 @@ MDOOLSE_orth <- function(X, F, V){
                 Mdoolse <- append(Mdoolse, Ne[i] - Ne[1] / V2[i-1,i-1])
         }
 
-        return(Mdoolse)
+        return(as.vector(Mdoolse))
 
 }
 

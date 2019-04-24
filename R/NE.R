@@ -36,6 +36,6 @@ NE <- function(X, F, V){
 
         Ne <- append(var, Ne)
 
-        return(Ne)
+        return(as.vector(Ne))
 }
 

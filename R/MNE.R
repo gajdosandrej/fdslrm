@@ -28,7 +28,7 @@ MNE <- function(X, F, V){
                 Mne <- append(Mne, Ne[i] - W_inv[i-1,i-1] * Ne[1])
         }
 
-        return(Mne)
+        return(as.vector(Mne))
 }
 
 

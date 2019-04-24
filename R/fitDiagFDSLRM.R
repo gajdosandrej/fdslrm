@@ -19,7 +19,7 @@
 #' @param fit_function type of function to fit the model. One of the following types is acceptable: \code{"lme", "mixed", "mmer"}.
 #' Default is \code{fit_function = "lme"}.
 #' @param var_estim_method type of method for estimating variance parameters. Default is \code{"REML"}.
-#' For \code{fit_function = "lme"} or \code{fit_function = "mmer"} the \code{"REML"} and \code{"ML"} estimates are available.
+#' For \code{fit_function = "lme"} the \code{"REML"} and \code{"ML"} estimates are available.
 #' For \code{fit_function = "mixed"} the following estimates are available: \code{"ML", "REML", "MINQEI", "MINQEUI"}.
 #' @param season_period input parameter of type numeric expressing the period of seasonality.
 #' Default is \code{season_period = 0}.
@@ -943,11 +943,11 @@ fitDiagFDSLRM <- function(x, times, freq_mean, poly_trend_degree = 0, include_fi
 
         } else {
 
-                if(!(var_estim_method %in% c("ML", "REML"))) {
-                        stop("var_estim_method for mmer() must be ML or REML.")
-                }
-
-                n <- length(x)
+                # if(!(var_estim_method %in% c("ML", "REML"))) {
+                #         stop("var_estim_method for mmer() must be ML or REML.")
+                # }
+                #
+                n <- length(times)
                 F <- matrix()
 
                 if(missing(freq_mean)) {
@@ -955,39 +955,55 @@ fitDiagFDSLRM <- function(x, times, freq_mean, poly_trend_degree = 0, include_fi
                 } else {
                         F <- makeF(times, freq_mean)
                 }
+                k <- ncol(F)
 
                 V <- makeV(times, freq_random)
                 l <- ncol(V)
+                #
+                # ETA <- list()
+                # for(i in 1:l) {
+                #         Zi <- as.matrix(V[,i])
+                #         ETA[[i]] <- list(Z=Zi, K=diag(1))
+                # }
+                #
+                # fit <- list()
+                #
+                # if(var_estim_method == "ML") {
+                #
+                #         fit <- sommer::mmer(Y = x, X = F, Z = ETA, REML = FALSE)
+                #
+                # } else {
+                #
+                #         fit <- sommer::mmer(Y = x, X = F, Z = ETA)
+                #
+                # }
 
-                ETA <- list()
-                for(i in 1:l) {
-                        Zi <- as.matrix(V[,i])
-                        ETA[[i]] <- list(Z=Zi, K=diag(1))
+                d <- data.frame(F[,1])
+                for(i in 2:k) {
+                        d <- cbind(d, F[,i])
                 }
-
-                fit <- list()
-
-                if(var_estim_method == "ML") {
-
-                        fit <- sommer::mmer(Y = x, X = F, Z = ETA, REML = FALSE)
-
-                } else {
-
-                        fit <- sommer::mmer(Y = x, X = F, Z = ETA)
-
+                for(j in 1:l) {
+                        d <- cbind(d, V[,j])
                 }
+                d <- cbind(d, x)
+                names(d) <- c(paste(rep("f", k), as.character(1:k), sep = ""), paste(rep("v", l), as.character(1:l), sep = ""), "x")
+                names_aux <- paste(paste(rep("vs(ds(v", l), as.character(1:l), sep = ""), rep("),1)", l), sep = "")
 
-                output <- list(fixed_effects = as.vector(fit$beta.hat),
-                               random_effects = unlist(fit$u.hat),
-                               error_variance = unlist(fit$var.comp)[l+1],
-                               rand_eff_variance = unlist(fit$var.comp),
-                               marg_fitted_values = F %*% as.vector(fit$beta.hat),
-                               cond_fitted_values = as.vector(fit$fitted.y),
+                fit <- mmer(fixed = as.formula(paste("x~", paste(names(d)[1:k], collapse = "+"))), random = as.formula(paste("~", paste(names_aux, collapse = "+"))), data = d)
+
+                output <- list(fixed_effects = as.vector(fit$Beta$Estimate),
+                               random_effects = as.vector(unlist(fit$U)),
+                               error_variance = as.vector(unlist(fit$sigma))[l+1],
+                               rand_eff_variance = as.vector(unlist(fit$sigma))[1:l],
+                               marg_fitted_values = F %*% as.vector(fit$Beta$Estimate),
+                               cond_fitted_values = F %*% as.vector(fit$Beta$Estimate) + V %*% as.vector(unlist(fit$U)),
                                marg_residuals = as.vector(fit$residuals),
-                               cond_residuals = as.vector(fit$cond.residuals),
-                               Box_test = Box.test(as.vector(fit$cond.residuals)),
-                               BoxLjung_test = Box.test(as.vector(fit$cond.residuals), type = "Ljung-Box"),
-                               ShapiroWilk_test_cond_resid = shapiro.test(as.vector(fit$cond.residuals)),
+                               cond_residuals = x - (F %*% as.vector(fit$Beta$Estimate) + V %*% as.vector(unlist(fit$U))),
+                               Box_test = Box.test(x - (F %*% as.vector(fit$Beta$Estimate) + V %*% as.vector(unlist(fit$U)))),
+                               BoxLjung_test = Box.test(x - (F %*% as.vector(fit$Beta$Estimate) + V %*% as.vector(unlist(fit$U))), type = "Ljung-Box"),
+                               ShapiroWilk_test_cond_resid = shapiro.test(x - (F %*% as.vector(fit$Beta$Estimate) + V %*% as.vector(unlist(fit$U)))),
+                               AIC = fit$AIC,
+                               BIC = fit$BIC,
                                time_series = x,
                                matrix_F = F,
                                matrix_V = V,

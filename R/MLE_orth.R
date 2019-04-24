@@ -52,6 +52,6 @@ MLE_orth <- function(X, F, V){
         }
         result <- c(s, sj)
 
-        return(result)
+        return(as.vector(result))
 
 }

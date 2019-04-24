@@ -39,6 +39,6 @@ NNDOOLSE <- function(X, F, V){
 
         sol <- solve(prob)
 
-        return(c(sol$getValue(s)))
+        return(as.vector(sol$getValue(s)))
 
 }

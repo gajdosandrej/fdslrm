@@ -31,5 +31,5 @@ DOOLSE_orth <- function(X, F, V){
                 Doolse <- append(Doolse, Ne[i] - const * Ne[1] / V2[i-1,i-1])
         }
 
-        return(Doolse)
+        return(as.vector(Doolse))
 }
