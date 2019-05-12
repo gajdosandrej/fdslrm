@@ -989,7 +989,7 @@ fitDiagFDSLRM <- function(x, times, freq_mean, poly_trend_degree = 0, include_fi
                 names(d) <- c(paste(rep("f", k), as.character(1:k), sep = ""), paste(rep("v", l), as.character(1:l), sep = ""), "x")
                 names_aux <- paste(paste(rep("vs(ds(v", l), as.character(1:l), sep = ""), rep("),1)", l), sep = "")
 
-                fit <- mmer(fixed = as.formula(paste("x~", paste(names(d)[1:k], collapse = "+"))), random = as.formula(paste("~", paste(names_aux, collapse = "+"))), data = d)
+                fit <- mmer(fixed = as.formula(paste("x~", paste(names(d)[1:k], collapse = "+"))), random = as.formula(paste("~", paste(names_aux, collapse = "+"))), data = d, verbose = FALSE)
 
                 output <- list(fixed_effects = as.vector(fit$Beta$Estimate),
                                random_effects = as.vector(unlist(fit$U)),
