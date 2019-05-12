@@ -411,7 +411,7 @@ fitDiagFDSLRM <- function(x, times, freq_mean, poly_trend_degree = 0, include_fi
 
                                 output <- list(fixed_effects = fixed.effects(fit),
                                                random_effects = random.effects(fit),
-                                               error_variance = fit$sigma,
+                                               error_variance = fit$sigma ^ 2,
                                                rand_eff_variance = getVarCov(fit),
                                                marg_fitted_values = fitted(fit, level=0),
                                                cond_fitted_values = fitted(fit),
@@ -514,7 +514,7 @@ fitDiagFDSLRM <- function(x, times, freq_mean, poly_trend_degree = 0, include_fi
 
                                 output <- list(fixed_effects = fixed.effects(fit),
                                                random_effects = random.effects(fit),
-                                               error_variance = fit$sigma,
+                                               error_variance = fit$sigma ^ 2,
                                                rand_eff_variance = getVarCov(fit),
                                                marg_fitted_values = fitted(fit, level=0),
                                                cond_fitted_values = fitted(fit),
@@ -635,7 +635,7 @@ fitDiagFDSLRM <- function(x, times, freq_mean, poly_trend_degree = 0, include_fi
 
                                 output <- list(fixed_effects = fixed.effects(fit),
                                                random_effects = random.effects(fit),
-                                               error_variance = fit$sigma,
+                                               error_variance = fit$sigma ^ 2,
                                                rand_eff_variance = getVarCov(fit),
                                                marg_fitted_values = fitted(fit, level=0),
                                                cond_fitted_values = fitted(fit),
@@ -746,7 +746,7 @@ fitDiagFDSLRM <- function(x, times, freq_mean, poly_trend_degree = 0, include_fi
 
                                 output <- list(fixed_effects = fixed.effects(fit),
                                                random_effects = random.effects(fit),
-                                               error_variance = fit$sigma,
+                                               error_variance = fit$sigma ^ 2,
                                                rand_eff_variance = getVarCov(fit),
                                                marg_fitted_values = fitted(fit, level=0),
                                                cond_fitted_values = fitted(fit),
