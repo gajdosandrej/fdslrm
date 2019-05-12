@@ -846,6 +846,9 @@ fitDiagFDSLRM <- function(x, times, freq_mean, poly_trend_degree = 0, include_fi
                 }
 
                 V <- makeV(times, freq_random)
+                if((!missing(include_random_eff) || length(include_random_eff) > 0) && sum(include_random_eff) < length(include_random_eff)) {
+                        V <- as.matrix(V[,-which(0 == include_random_eff)])
+                }
                 l <- ncol(V)
                 variances_start <- rep(1, l+1)
                 dimensions <- rep(1, l)
@@ -958,6 +961,9 @@ fitDiagFDSLRM <- function(x, times, freq_mean, poly_trend_degree = 0, include_fi
                 k <- ncol(F)
 
                 V <- makeV(times, freq_random)
+                if((!missing(include_random_eff) || length(include_random_eff) > 0) && sum(include_random_eff) < length(include_random_eff)) {
+                        V <- as.matrix(V[,-which(0 == include_random_eff)])
+                }
                 l <- ncol(V)
                 #
                 # ETA <- list()
