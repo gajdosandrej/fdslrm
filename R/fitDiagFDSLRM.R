@@ -843,6 +843,9 @@ fitDiagFDSLRM <- function(x, times, freq_mean, poly_trend_degree = 0, include_fi
                         F <- rep(1, n)
                 } else {
                         F <- makeF(times, freq_mean)
+                        if((!missing(include_fixed_eff) || length(include_fixed_eff) > 0) && sum(include_fixed_eff) < length(include_fixed_eff)) {
+                                F <- as.matrix(F[,-(which(0 == include_fixed_eff)+1)])
+                        }
                 }
 
                 V <- makeV(times, freq_random)
@@ -957,7 +960,11 @@ fitDiagFDSLRM <- function(x, times, freq_mean, poly_trend_degree = 0, include_fi
                         F <- rep(1, n)
                 } else {
                         F <- makeF(times, freq_mean)
+                        if((!missing(include_fixed_eff) || length(include_fixed_eff) > 0) && sum(include_fixed_eff) < length(include_fixed_eff)) {
+                                F <- as.matrix(F[,-(which(0 == include_fixed_eff)+1)])
+                        }
                 }
+
                 k <- ncol(F)
 
                 V <- makeV(times, freq_random)
