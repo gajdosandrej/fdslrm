@@ -4,9 +4,19 @@
 \alias{fitDiagFDSLRM}
 \title{Fitting and diagnostic of FDSLRM}
 \usage{
-fitDiagFDSLRM(x, times, freq_mean, poly_trend_degree = 0, include_fixed_eff,
-  freq_random, include_random_eff, fit_function = "lme",
-  var_estim_method = "REML", season_period = 0, display_plots = FALSE)
+fitDiagFDSLRM(
+  x,
+  times,
+  freq_mean,
+  poly_trend_degree = 0,
+  include_fixed_eff,
+  freq_random,
+  include_random_eff,
+  fit_function = "lme",
+  var_estim_method = "REML",
+  season_period = 0,
+  display_plots = FALSE
+)
 }
 \arguments{
 \item{x}{time series observation.}
@@ -30,7 +40,7 @@ corresponding to particular frequency in \code{freq_random} should be excluded /
 Default is \code{fit_function = "lme"}.}
 
 \item{var_estim_method}{type of method for estimating variance parameters. Default is \code{"REML"}.
-For \code{fit_function = "lme"} or \code{fit_function = "mmer"} the \code{"REML"} and \code{"ML"} estimates are available.
+For \code{fit_function = "lme"} the \code{"REML"} and \code{"ML"} estimates are available.
 For \code{fit_function = "mixed"} the following estimates are available: \code{"ML", "REML", "MINQEI", "MINQEUI"}.}
 
 \item{season_period}{input parameter of type numeric expressing the period of seasonality.
@@ -99,7 +109,7 @@ Ver.: 13-Jan-2019 11:15:48.
 ## EXAMPLE 1 (LMM)
 # load all necessary R packages and functions to fit and make diagnostic of FDSLRM
 initialFDSLRM()
-# the following data set comes from Hyndman's package fpp2 (Hyndman 2018)
+# the following data set was adapted from Hyndman's package fpp2 (Hyndman 2018)
 # data represent total quarterly visitor nights (in millions) from 1998-2016 in one of the regions
 # of Australia - inner zone of Victoria state
 # the number of time series observations is  n = 76
@@ -120,7 +130,7 @@ output_lme <- fitDiagFDSLRM(dt, t, c(1/80, 2/80), include_fixed_eff = c(1,0,0,1)
 drawDiagPlots("all", output_lme)
 drawDiagPlots(output_lme$diagnostic_plots_names$FittedTimeSeries, output_lme)
 # show summary of model fit
-output_lme$fit_summary
+str(output_lme$fit_summary)
 # fit the model with mixed function
 output_mixed <- fitDiagFDSLRM(dt, t, c(1/80, 2/80), include_fixed_eff = c(1,0,0,1),
                             freq_random = c(20/80, 40/80), include_random_eff = c(1,1,1,0),
@@ -130,7 +140,7 @@ output_mixed <- fitDiagFDSLRM(dt, t, c(1/80, 2/80), include_fixed_eff = c(1,0,0,
 drawDiagPlots("all", output_mixed)
 drawDiagPlots(output_mixed$diagnostic_plots_names$CumulatPeriodogCondResid, output_lme)
 # show summary of model fit
-output_mixed$mixed_fit
+str(output_mixed$mixed_fit)
 
 # fit the model with mmer function
 output_mmer <- fitDiagFDSLRM(dt, t, c(1/80, 2/80), include_fixed_eff = c(1,0,0,1),
@@ -140,12 +150,12 @@ output_mmer <- fitDiagFDSLRM(dt, t, c(1/80, 2/80), include_fixed_eff = c(1,0,0,1
 drawDiagPlots("all", output_mmer)
 drawDiagPlots(output_mmer$diagnostic_plots_names$CumulatPeriodogCondResid, output_mmer)
 # show summary of model fit
-output_mmer$mmer_fit
+str(output_mmer$mmer_fit)
 
 ## EXAMPLE 2 (CLRM)
 # load all necessary R packages and functions to fit and make diagnostic of FDSLRM
 initialFDSLRM()
-# the following data set comes from Hyndman's package fpp2 (Hyndman 2018)
+# the following data set was adapted from Hyndman's package fpp2 (Hyndman 2018)
 # data represent total quarterly visitor nights (in millions) from 1998-2016 in one of the regions
 # of Australia - inner zone of Victoria state
 # the number of time series observations is  n = 76
@@ -164,7 +174,7 @@ output_lm <- fitDiagFDSLRM(dt, t, c(1/80, 2/80, 20/80, 40/80), include_fixed_eff
 drawDiagPlots("all", output_lm)
 drawDiagPlots(output_lm$diagnostic_plots_names$FittedTimeSeries, output_lme)
 # show summary of model fit
-output_lm$fit_summary
+str(output_lm$fit_summary)
 }
 \references{
 Covarrubias-Pazaran G. 2016: Genome assisted prediction of quantitative traits using the R package sommer.
@@ -182,5 +192,6 @@ Singer, J. M., Rocha, F. M. M., and Nobre, J. S. (2017): Graphical Tools for Det
 from Linear Mixed Model Assumptions and Some Remedial Measures.
 \emph{International Statistical Review}, 85: 290-324.
 
-WITKOVSKY, V. (2002): MATLAB algorithm mixed.m for solving Henderson's mixed model equations. Elsevier 2002.
+Witkovsky, V.: MATLAB Algorithm for solving Henderson's Mixed Model Equations. Technical Report No. 3/2000,
+Institute of Measurement Science, Slovak Academy of Sciences, Bratislava, 2000.
 }

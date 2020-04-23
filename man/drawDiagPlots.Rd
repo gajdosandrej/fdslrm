@@ -31,7 +31,7 @@ Ver.: 12-Jan-2019 17:18:53.
 ## EXAMPLE 1 (LMM)
 # load all necessary R packages and functions to fit and make diagnostic of FDSLRM
 initialFDSLRM()
-# the following data set comes from Hyndman's package fpp2 (Hyndman 2018)
+# the following data set was adapted from Hyndman's package fpp2 (Hyndman 2018)
 # data represent total quarterly visitor nights (in millions) from 1998-2016 in one of the regions
 # of Australia - inner zone of Victoria state
 # the number of time series observations is  n = 76
@@ -52,7 +52,7 @@ output_lme <- fitDiagFDSLRM(dt, t, c(1/80, 2/80), include_fixed_eff = c(1,0,0,1)
 drawDiagPlots("all", output_lme)
 drawDiagPlots(output_lme$diagnostic_plots_names$FittedTimeSeries, output_lme)
 # show summary of model fit
-output_lme$fit_summary
+str(output_lme$fit_summary)
 # fit the model with mixed function
 output_mixed <- fitDiagFDSLRM(dt, t, c(1/80, 2/80), include_fixed_eff = c(1,0,0,1),
                             freq_random = c(20/80, 40/80), include_random_eff = c(1,1,1,0),
@@ -62,7 +62,7 @@ output_mixed <- fitDiagFDSLRM(dt, t, c(1/80, 2/80), include_fixed_eff = c(1,0,0,
 drawDiagPlots("all", output_mixed)
 drawDiagPlots(output_mixed$diagnostic_plots_names$CumulatPeriodogCondResid, output_lme)
 # show summary of model fit
-output_mixed$mixed_fit
+str(output_mixed$mixed_fit)
 
 # fit the model with mmer function
 output_mmer <- fitDiagFDSLRM(dt, t, c(1/80, 2/80), include_fixed_eff = c(1,0,0,1),
@@ -72,12 +72,12 @@ output_mmer <- fitDiagFDSLRM(dt, t, c(1/80, 2/80), include_fixed_eff = c(1,0,0,1
 drawDiagPlots("all", output_mmer)
 drawDiagPlots(output_mmer$diagnostic_plots_names$CumulatPeriodogCondResid, output_mmer)
 # show summary of model fit
-output_mmer$mmer_fit
+str(output_mmer$mmer_fit)
 
 ## EXAMPLE 2 (CLRM)
 # load all necessary R packages and functions to fit and make diagnostic of FDSLRM
 initialFDSLRM()
-# the following data set comes from Hyndman's package fpp2 (Hyndman 2018)
+# the following data set was adapted from Hyndman's package fpp2 (Hyndman 2018)
 # data represent total quarterly visitor nights (in millions) from 1998-2016 in one of the regions
 # of Australia - inner zone of Victoria state
 # the number of time series observations is  n = 76
@@ -96,5 +96,5 @@ output_lm <- fitDiagFDSLRM(dt, t, c(1/80, 2/80, 20/80, 40/80), include_fixed_eff
 drawDiagPlots("all", output_lm)
 drawDiagPlots(output_lm$diagnostic_plots_names$FittedTimeSeries, output_lme)
 # show summary of model fit
-output_lm$fit_summary
+str(output_lm$fit_summary)
 }

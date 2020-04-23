@@ -52,7 +52,8 @@
 #' from Linear Mixed Model Assumptions and Some Remedial Measures.
 #' \emph{International Statistical Review}, 85: 290-324.
 #'
-#' WITKOVSKY, V. (2002): MATLAB algorithm mixed.m for solving Henderson's mixed model equations. Elsevier 2002.
+#' Witkovsky, V.: MATLAB Algorithm for solving Henderson's Mixed Model Equations. Technical Report No. 3/2000,
+#' Institute of Measurement Science, Slovak Academy of Sciences, Bratislava, 2000.
 #'
 #' @return This function returns an output - \code{result}, which is a list with the following elements (for LMM):
 #' \itemize{

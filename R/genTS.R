@@ -20,7 +20,7 @@
 #'
 #' @export
 #'
-genTS <- function(mean, V, var){
+genTS <- function(mean, V, var) {
 
         if(missing(mean)) {
 

@@ -9,7 +9,7 @@ Depends: R (>= 2.10)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.0
 Imports: kableExtra, IRdisplay, MASS, Matrix, car, nlme, stats, forecast, fpp2, matrixcalc, sommer, gnm, pracma, CVXR
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr

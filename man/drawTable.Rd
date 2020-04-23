@@ -4,8 +4,14 @@
 \alias{drawTable}
 \title{Draw table of FDSLRM parameters estimates and frequencies}
 \usage{
-drawTable(type, periodogram, frequencies = NULL, fixed_eff, random_eff,
-  variances)
+drawTable(
+  type,
+  periodogram,
+  frequencies = NULL,
+  fixed_eff,
+  random_eff,
+  variances
+)
 }
 \arguments{
 \item{type}{one of the following values if acceptable: \code{"periodogram", "fixed", "random", "variance"}.}
